@@ -72,8 +72,10 @@ The design includes:
 - **`CellPhone` Class**: Manages current and previous states, performs state transitions, and provides shared behaviors.
 - **Concrete State Classes**: Implements state-specific behaviors for Idle, Menu, Ringing, Dialing, and Talking states.
 
-### Sample Implementation in C#
-Here’s an example of the `IStat`:
+## Sample Implementation in C#
+### IState interface
+The IState interface is how you implement the actual "intelligence". The idea is that an entity can only be in one state at any given time, so you can use this interface to dictate what happens when that state is entered, when to leave that state, and where to go.
+Here’s an example of the `IState`:
 ```csharp
 class Idle : IState {
     public void menuButton(CellPhone cellPhone) {
