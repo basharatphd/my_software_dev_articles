@@ -91,4 +91,95 @@ class Idle : IState {
     }
 }
 ```
+### `CellPhone` Class
 
+The `CellPhone` class is responsible for managing the current and previous states of the system. It facilitates state transitions and provides wrappers for actions specific to each state. This class leverages the `IState` interface to ensure modular and state-specific behavior.
+
+Key responsibilities of the `CellPhone` class:
+- Maintain references to the current and previous states.
+- Handle state transitions through a defined state map.
+- Delegate state-specific actions to the appropriate state objects.
+
+```csharp
+public class CellPhone
+{
+    private Form1 m_form; 
+    private IState m_previousState;
+    private IState m_currentState;
+    private Hashtable m_states = new Hashtable();
+
+    public CellPhone(Form1 f)
+    {
+        m_states.Add(eState.IDLE, new Idle());
+        m_states.Add(eState.MENU, new Menu());
+        m_states.Add(eState.RINGING, new Ringing());
+        m_states.Add(eState.DIALING, new Dialing());
+        m_states.Add(eState.TALKING, new Talking());
+    
+        // Default state is Idle
+        m_currentState = (IState)m_states[eState.IDLE]; 
+        m_previousState = null; 
+        m_form = f;
+        disconnect();
+    }
+
+    public eState getCurrentState()
+    {
+        foreach(object key in m_states.Keys)
+        {
+            if((IState)m_states[key] == m_currentState)
+                return (eState)key;
+        }    
+        return eState.UNKNOWN;
+    }
+
+    public void setCurrentState(eState s)
+    {
+        m_previousState = m_currentState;
+        m_currentState = (IState)m_states[s];    
+    }
+
+    // Wrappers for state-specific actions
+    public void menuButton() => m_currentState.menuButton(this);
+    public void callButton() => m_currentState.callButton(this);
+    public void exitButton() => m_currentState.exitButton(this);
+    public void ringButton()
+    {
+        setCurrentState(eState.RINGING);
+        ringing();
+    }
+
+    // Additional actions
+    public void call() => Show("Calling...");
+    public void showLastCall() => Show("LastCall List...");
+    public void showMenu() => Show("Menu List...");
+    public void talking() => Show("Call Connected...");
+    public void ringing() => Show("Call is coming...");
+    public void answer() => Show("Answering...");
+    public void disconnect() => Show("Disconnected/Idle...");
+
+    public void Show(string s)
+    {
+        ListViewItem item = new ListViewItem();
+        item.Text = s;
+        item.SubItems.Add(m_previousState?.ToString().Replace("StatePattern.", "") ?? "Unknown");
+        item.SubItems.Add(m_currentState.ToString().Replace("StatePattern.", ""));
+        m_form.MainListView.Items.Add(item);
+
+        m_form.LState.Text = m_currentState.ToString().Replace("StatePattern.", "");
+        m_form.LOperation.Text = s;
+    }
+
+    public void ignore()
+    {
+        string str = $"Ignored: Currently in {m_currentState}".Replace("StatePattern.", "");
+        m_form.MainListView.Items.Add(str);
+    }
+
+    public void repeat()
+    {
+        string str = $"Already in {m_currentState}".Replace("StatePattern.", "");
+        m_form.MainListView.Items.Add(str);
+    }
+}
+```
