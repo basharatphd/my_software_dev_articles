@@ -1,5 +1,9 @@
 # Cell Phone - An Implementation of Behavioral Pattern to Describe States
 
+### Note: 
+
+This implementation is inspired by my article on CodeProject. For more information, visit the [original article](https://www.codeproject.com/articles/10128/Cell-Phone-An-implementation-of-behavioral-pattern).
+
 This project demonstrates the implementation of the **State Pattern** using a cell phone's state-based behavior as an example. The application models various states of a cell phone (e.g., Idle, Menu, Ringing, Dialing, Talking) and their transitions, based on events.
 
 ---
@@ -314,4 +318,5 @@ class Talking : IState
 }
 ```
 These concrete classes provide a modular and extensible implementation of the `IState` interface, ensuring clear state-specific behavior and robust state management.
+
 
