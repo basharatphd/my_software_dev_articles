@@ -73,7 +73,7 @@ The design includes:
 - **Concrete State Classes**: Implements state-specific behaviors for Idle, Menu, Ringing, Dialing, and Talking states.
 
 ## Sample Implementation in C#
-### IState interface
+### `IState` interface
 The IState interface is how you implement the actual "intelligence". The idea is that an entity can only be in one state at any given time, so you can use this interface to dictate what happens when that state is entered, when to leave that state, and where to go.
 Here’s an example of the `IState`:
 ```csharp
