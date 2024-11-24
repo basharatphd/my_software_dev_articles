@@ -243,5 +243,75 @@ class Menu : IState
     }
 }
 ```
+#### `Ringing` Class
+The Ringing class represents the state when a call is incoming. It transitions to the talking state upon answering or back to idle when the call is declined.
 
+```csharp
+class Ringing : IState
+{
+    public void menuButton(CellPhone cellPhone)
+    {
+        cellPhone.ignore();
+    }
+
+    public void callButton(CellPhone cellPhone)
+    {
+        cellPhone.setCurrentState(eState.TALKING);
+        cellPhone.answer();
+    }
+
+    public void exitButton(CellPhone cellPhone)
+    {
+        cellPhone.setCurrentState(eState.IDLE);
+        cellPhone.disconnect();
+    }
+}
+```
+#### `Dialing` Class
+The Dialing class represents the state of an outgoing call. It ensures invalid actions are ignored or appropriately handled, and transitions to idle when canceled.
+
+```csharp
+class Dialing : IState
+{
+    public void menuButton(CellPhone cellPhone)
+    {
+        cellPhone.ignore();
+    }
+
+    public void callButton(CellPhone cellPhone)
+    {
+        cellPhone.repeat();
+    }
+
+    public void exitButton(CellPhone cellPhone)
+    {
+        cellPhone.setCurrentState(eState.IDLE);
+        cellPhone.disconnect();
+    }
+}
+```
+#### `Talking` Class
+The Talking class handles the state of an active call. It ignores unrelated actions and transitions back to idle when the call ends.
+
+```csharp
+class Talking : IState
+{
+    public void menuButton(CellPhone cellPhone)
+    {
+        cellPhone.ignore();
+    }
+
+    public void callButton(CellPhone cellPhone)
+    {
+        cellPhone.repeat();
+    }
+
+    public void exitButton(CellPhone cellPhone)
+    {
+        cellPhone.setCurrentState(eState.IDLE);
+        cellPhone.disconnect();
+    }
+}
+```
+These concrete classes provide a modular and extensible implementation of the `IState` interface, ensuring clear state-specific behavior and robust state management.
 
