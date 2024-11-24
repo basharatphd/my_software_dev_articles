@@ -1,5 +1,8 @@
 # Relationship Between Pipes-and-Filters and Decorator Design Patterns
 
+### Note: 
+This implementation is inspired by my article on CodeProject. For more information, visit the [original article](https://www.codeproject.com/Articles/13135/Search-Keywords-Relationship-between-Pipes-and-Fil).
+
 This repository demonstrates the relationship between the **Pipes-and-Filters** architectural pattern and the **Decorator** design pattern through implementations in C#. The goal is to showcase their similarities, differences, and how each can be applied to solve real-world problems.
  
 ## Introduction
@@ -78,20 +81,6 @@ This repository includes:
 # Relationship Between Pipes-and-Filters and Decorator Design Patterns
 
 This repository demonstrates the relationship between the **Pipes-and-Filters** architectural pattern and the **Decorator** design pattern through implementations in C#. The goal is to showcase their similarities, differences, and how each can be applied to solve real-world problems.
-
-## Table of Contents
-- [Introduction](#introduction)
-- [Pipes-and-Filters Pattern](#pipes-and-filters-pattern)
-  - [Key Components](#key-components)
-  - [Advantages](#advantages)
-  - [Limitations](#limitations)
-- [Decorator Pattern](#decorator-pattern)
-  - [Core Concept](#core-concept)
-  - [Benefits](#benefits)
-- [Comparison](#comparison)
-- [Implementations](#implementations)
-- [Usage](#usage)
-- [References](#references)
 
 ## Introduction
 
