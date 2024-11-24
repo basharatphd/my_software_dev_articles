@@ -185,3 +185,63 @@ public class CellPhone
     }
 }
 ```
+### Concrete Classes
+
+The Concrete classes implement the `IState` interface to define the behavior for each specific state of the cell phone. These classes encapsulate the rules for transitioning between states and managing actions within their respective states.
+
+Each state class overrides the methods in the `IState` interface (`menuButton`, `callButton`, and `exitButton`) to dictate behavior and transitions.
+
+---
+
+#### `Idle` Class
+
+The `Idle` class represents the idle state of the cell phone. Actions such as invoking the menu or call commands result in transitions to the appropriate states.
+
+```csharp
+class Idle : IState
+{
+    public void menuButton(CellPhone cellPhone)
+    {
+        cellPhone.setCurrentState(eState.MENU);
+        cellPhone.showMenu();
+    }
+
+    public void callButton(CellPhone cellPhone)
+    {
+        cellPhone.setCurrentState(eState.MENU);
+        cellPhone.showLastCall();
+    }
+
+    public void exitButton(CellPhone cellPhone)
+    {
+        cellPhone.repeat();
+    }
+}
+```
+#### `Menu` Class
+The Menu class handles actions in the menu state. It transitions to the dialing state when a call is initiated and back to the idle state when exited.
+
+```csharp
+class Menu : IState
+{
+    public void menuButton(CellPhone cellPhone)
+    {
+        cellPhone.repeat();
+    }
+
+    public void callButton(CellPhone cellPhone)
+    {
+        Alpha a = new Alpha(cellPhone);
+        Thread t = new Thread(new ThreadStart(a.threadProc));
+        t.Start();
+    }
+
+    public void exitButton(CellPhone cellPhone)
+    {
+        cellPhone.setCurrentState(eState.IDLE);
+        cellPhone.disconnect();
+    }
+}
+```
+
+
