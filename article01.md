@@ -72,8 +72,8 @@ The design includes:
 - **`CellPhone` Class**: Manages current and previous states, performs state transitions, and provides shared behaviors.
 - **Concrete State Classes**: Implements state-specific behaviors for Idle, Menu, Ringing, Dialing, and Talking states.
 
-### Sample Implementation
-Here’s an example of the `Idle` state:
+### Sample Implementation in C#
+Here’s an example of the `IStat`:
 ```csharp
 class Idle : IState {
     public void menuButton(CellPhone cellPhone) {
