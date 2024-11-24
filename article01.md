@@ -28,6 +28,31 @@ The cell phone can exist in one of the following states:
 **Special Cases**:
 - Repeated commands in the current state show specific messages (e.g., "Already in Idle state").
 - Certain operations may be ignored in specific states (e.g., "Operation Ignored: Currently in Talking State").
+## Special Cases and Responses
+
+The system provides specific responses to invalid or redundant commands in various states:
+
+1. **Idle State**:
+   - **Command**: `Cancel`
+   - **Response**: `Already in Idle state`
+
+2. **Menu State**:
+   - **Command**: `Menu`
+   - **Response**: `Already in Menu state`
+
+3. **Dialing/Talking State**:
+   - **Command**: `Call`
+   - **Response**: `Already in Dialing/Talking state`
+
+4. **Talking State**:
+   - **Command**: `Menu`
+   - **Response**: `Operation Ignored: Currently in Talking State`
+
+5. **Ringing State**:
+   - **Command**: `Menu`
+   - **Response**: `Operation Ignored: Currently in Ringing State`
+
+These predefined responses ensure clarity in system behavior and prevent invalid operations within a given state.
 
 ---
 
@@ -65,3 +90,5 @@ class Idle : IState {
         cellPhone.repeat();
     }
 }
+```
+
